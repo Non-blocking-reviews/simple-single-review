@@ -44,3 +44,5 @@ The following labels must be created - or the App used should be able to create 
 In addition to a lot ease-of-use improvements the following features are in pipeline: 
 
 - "Reviewed until"-tag that moves ahead with reviews.
+- Introduce use of GitNotes to link to reviews or reviewers
+
