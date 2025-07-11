@@ -13,12 +13,13 @@ jobs:
           app-id: ${{ vars.TRUNKTOPUS_APP_ID }}
           private-key: ${{ secrets.TRUNKTOPUS_PRIVATE_KEY }}
           owner: ${{ github.repository_owner }}
-          ORGANIZATION_NAME: ${{ github.repository_owner }}
       - name: Show organization projects
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          ORGANIZATION_NAME: "${{ github.repository_owner }}"
         run: |
           set -e
+          
           echo "🔍 Projects for organization: $ORGANIZATION_NAME"
           gh api graphql -f query='
             query($login: String!) {
