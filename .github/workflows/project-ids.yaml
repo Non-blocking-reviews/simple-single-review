@@ -19,7 +19,6 @@ jobs:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           set -e
-        run: |
           echo "🔍 Projects for organization: $ORGANIZATION_NAME"
           gh api graphql -f query='
             query($login: String!) {
