@@ -35,6 +35,7 @@ It uses an "App" for authorization.
   - All Repositories (in the organizations)
 - Create Private Key and add the SHA (in full) into organization secrets for actions. Name: TRUNKTOPUS_PRIVATE_KEY
 - Get the appid for the app and put into actions variables for organization. Name: TRUNKTOPUS_APP_ID
+- Install it on organization. 
 
 ### Issues
 The following labels must be created - or the App used should be able to create labels.
