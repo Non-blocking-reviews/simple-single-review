@@ -47,7 +47,7 @@ jobs:
           REPO="${{ github.repository }}"
           OWNER=$(echo "$REPO" | cut -d'/' -f1)
           REPO_NAME=$(echo "$REPO" | cut -d'/' -f2)
-          PROJECT_ID="PVT_01234567890"
+          PROJECT_ID="PVT_kwDODM8VOc4A9rBl"
 
           gh label create "review-comment" --color "#d60a24" --description "Comment on commit" || true
 

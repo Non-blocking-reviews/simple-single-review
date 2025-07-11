@@ -37,8 +37,8 @@ jobs:
         run: |
           set -e
 
-          PROJECT_ID="PVT_1234567890"  # Replace with your Project V2 node ID - retrieve with "project-ids"-workflow.
-          REVIEWERS=("username1" "username2")  # Add more if needed
+          PROJECT_ID="PVT_kwDODM8VOc4A9rBl"  # Replace with your Project V2 node ID - retrieve with "project-ids"-workflow.
+          REVIEWERS=("msc-tooling" "mortensensoftwareconsulting")  # Add more if needed
           REPO="${{ github.repository }}"
           REPO_ID=$(gh api repos/$REPO --jq '.node_id')
           REPO_URL="https://github.com/$REPO"
