@@ -27,7 +27,14 @@ Thoughts and reasoning can be found here: [optimizing-software-development-proce
 ### Security 
 Current version is in use with organization repository.
 It uses an "App" for authorization.
-Permissions required for app: (PENDING)
+
+- Create Github App.
+- Permissions required for app
+  - "Read access to metadata and organization events"
+  - "Read and write access to actions, checks, code, issues, organization projects, and repository projects"
+  - All Repositories (in the organizations)
+- Create Private Key and add the SHA (in full) into organization secrets for actions. Name: TRUNKTOPUS_PRIVATE_KEY
+- Get the appid for the app and put into actions variables for organization. Name: TRUNKTOPUS_APP_ID
 
 ### Issues
 The following labels must be created - or the App used should be able to create labels.
@@ -36,8 +43,17 @@ The following labels must be created - or the App used should be able to create 
 - Commented
 
 ### Project
-- Create a project for code review issues. 
+- Create a project for code review issues. Create it as Board.
 - Get the ID of the project by running "List Project V2 IDs" manually and inspecting output.
+- In project go to settings:
+  - Name the statuses. (Suggestion: Review, Extra Eyes, Done)
+  - Set up workflow - Enable the ones below. The rest should be disabled.
+    - "Item added to project" set value Status: Review.
+    - "Item closed" Set Value: Status: Done
+    - "Auto-close issue": Status: Done => Close issue.
+    - Optional: "Auto-add sub-issues to project".
+- Currently you must provide the project id (PVT_...) in the actions. So find it, and replace the PVT_1234567890 strings with correct id.
+  
 
 
 ## Future features
