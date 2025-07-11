@@ -22,7 +22,7 @@ jobs:
           echo "🔍 Projects for organization: $ORGANIZATION_NAME"
           gh api graphql -f query='
             query($login: String!) {
-              organization(login: "$ORGANIZATION_NAME") {
+              organization(login: $login) {
                 projectsV2(first: 50) {
                   nodes {
                     id
