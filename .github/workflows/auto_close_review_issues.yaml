@@ -78,15 +78,6 @@ jobs:
               echo "🎯 A peer review is closed and no open comments — closing issue #$ISSUE_NUM"
               gh issue close "$ISSUE_NUM" --repo "$REPO" --comment "✅ No open comments and peer review closed"
 
-              if [ -n "$COMMIT_SHA" ]; then
-                echo "📌 Marking commit $COMMIT_SHA as reviewed"
-                gh api repos/$REPO/statuses/$COMMIT_SHA \
-                  -f state='success' \
-                  -f context='peer-review' \
-                  -f description='Peer review completed' \
-                  --silent || echo "⚠️ Failed to update commit status"
-              fi
-
             else
               echo "⏳ Still waiting for some tasks — skipping #$ISSUE_NUM"
             fi
