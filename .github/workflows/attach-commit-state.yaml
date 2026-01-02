@@ -1,0 +1,28 @@
+name: Mark commit reviewed
+
+on:
+  workflow_dispatch:
+    inputs:
+      sha:
+        description: "Commit SHA to mark as reviewed"
+        required: true
+
+permissions:
+  statuses: write
+
+jobs:
+  mark:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set commit status
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: core.getInput('sha'),
+              state: 'success',
+              context: 'peer-review',
+              description: 'Peer review completed'
+            });
