@@ -62,7 +62,7 @@ jobs:
 
             FIRST_LINE=$(git show -s --format=%s "$COMMIT")
             MAIN_TITLE="Commit: $FIRST_LINE ($SHORT_SHA)"
-            MAIN_BODY="Please review the changes made in [\`$COMMIT\`]($REPO_URL/commit/$COMMIT)"
+            MAIN_BODY="Please review the changes made in [\`$COMMIT\`]($REPO_URL/commit/$COMMIT?diff=split)"
 
             AUTHOR_LOGIN=$(gh api repos/$REPO/commits/$COMMIT --jq '.author.login')
             echo "Author Login $AUTHOR_LOGIN"
