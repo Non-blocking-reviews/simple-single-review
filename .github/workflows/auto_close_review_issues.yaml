@@ -36,6 +36,10 @@ jobs:
           gh issue list --repo "$REPO" --state open --label "author-issue" --limit 500 --json number | jq -r '.[].number' > parent_issues.txt
           cat parent_issues.txt
 
+          # If people are closing the parent issue manually, the current workflow will not necessarily work. 
+          # Wait with support for that until refactor of the whole flow. 
+          # For now closing a peer review should result in the commit of that peer review being marked as reviewed in peer-review context state.
+
           while read -r issue; do
             ISSUE_NUM=$(echo "$issue")
 
@@ -73,6 +77,16 @@ jobs:
             if [ "$UNCHECKED_COMMENTS" -eq 0 ] && [ "$CHECKED_PEER_REVIEWS" -gt 0 ]; then
               echo "🎯 A peer review is closed and no open comments — closing issue #$ISSUE_NUM"
               gh issue close "$ISSUE_NUM" --repo "$REPO" --comment "✅ No open comments and peer review closed"
+
+              if [ -n "$COMMIT_SHA" ]; then
+                echo "📌 Marking commit $COMMIT_SHA as reviewed"
+                gh api repos/$REPO/statuses/$COMMIT_SHA \
+                  -f state='success' \
+                  -f context='peer-review' \
+                  -f description='Peer review completed' \
+                  --silent || echo "⚠️ Failed to update commit status"
+              fi
+
             else
               echo "⏳ Still waiting for some tasks — skipping #$ISSUE_NUM"
             fi
@@ -113,6 +127,7 @@ jobs:
               ISSUE_NUM=$(echo "$issue")
 
               echo "📝 Closing issue #$ISSUE_NUM"
+              COMMIT_SHA=$(echo "$BODY" | grep -oE 'github\.com/.*/commit/[a-f0-9]+' | grep -oE '[a-f0-9]{40}' | head -n1)
 
               gh issue close "$ISSUE_NUM" --repo "$REPO" --comment "✅ Peer review finished because author issue closed"
 
