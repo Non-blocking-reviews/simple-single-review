@@ -1,4 +1,4 @@
-name: Mark Commit as Reviewed by Claude
+name: Mark Commit as Reviewed
 
 on:
   workflow_dispatch:
@@ -29,18 +29,17 @@ jobs:
             const reviewer = '${{ github.event.inputs.reviewer }}';
             
             // Build description with reviewer if provided
-            let description = 'This commit has been reviewed';
+            let description = 'Peer review completed';
             if (reviewer) {
               description += ` by ${reviewer}`;
             }
             
-            // Create commit status
             await github.rest.repos.createCommitStatus({
               owner: context.repo.owner,
               repo: context.repo.repo,
               sha: commitSha,
               state: 'success',
-              context: 'code-review/reviewed',
+              context: 'peer-review',
               description: description,
               target_url: `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/commit/${commitSha}`
             });
