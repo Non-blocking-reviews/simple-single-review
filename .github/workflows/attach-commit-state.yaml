@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
     inputs:
       sha:
-        description: "Commit SHA to mark as reviewed"
-        required: true
+        description: "Commit SHA to mark (optional; defaults to this run's commit)"
+        required: false
 
 permissions:
   statuses: write
@@ -18,8 +18,8 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const sha = process.env.INPUT_SHA;
-            if (!sha) throw new Error("Missing input 'sha' (process.env.INPUT_SHA is empty).");
+            const sha = (process.env.INPUT_SHA && process.env.INPUT_SHA.trim()) || context.sha;
+            console.log("Using SHA:", sha);
 
             await github.rest.repos.createCommitStatus({
               owner: context.repo.owner,
