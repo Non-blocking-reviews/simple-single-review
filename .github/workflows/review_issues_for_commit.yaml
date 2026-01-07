@@ -164,6 +164,17 @@ jobs:
 
             echo "  ↳ Sub-issue #$SUB_ISSUE_NUM for $reviewer created"
 
+            # Create / update commit status linking to the peer-review issue
+            gh api \
+              -X POST \
+              "repos/$REPO/statuses/$COMMIT" \
+              -f state="pending" \
+              -f context="peer-review" \
+              -f description="Awaiting peer review" \
+              -f target_url="$SUB_ISSUE_URL"
+
+            echo "  ↳ Review pending commit status added"
+
             # 2. Add sub-issue to project
             gh api graphql -f query='
               mutation($projectId:ID!, $contentId:ID!) {
