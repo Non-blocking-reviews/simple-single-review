@@ -19,6 +19,7 @@ Thoughts and reasoning can be found here: [optimizing-software-development-proce
     - Link to commit
     - Link to Author Issue
     - Inlined changes if a small change.
+  - Commit is tagged with status "peer-review" with value pending. This is closed when peer and author review is closed.
 - If Peer reviewer adds a comment to a commit, a check list item is added to Author Issue.
 - Author issue closes when peer review is closed and all comments have been checked in author issue.
 
